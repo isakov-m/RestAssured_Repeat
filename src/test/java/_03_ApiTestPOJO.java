@@ -14,14 +14,14 @@ public class _03_ApiTestPOJO {
         // Ogrenci ogr1 = new Ogrenci();
 
         Location locationNesnesi =
-        given()
-                .when()
-                .get("http://api.zippopotam.us/us/90210")
+                given()
+                        .when()
+                        .get("http://api.zippopotam.us/us/90210")
 
-                .then()
-                .extract().body().as(Location.class)    // Location kalibina gore
+                        .then()
+                        .extract().body().as(Location.class)    // Location kalibina gore
                 // donen body bilgisi   Location Class kalibiyla cevir
-        ;
+                ;
 
         System.out.println("locationNesnesi = " + locationNesnesi);
         System.out.println("locationNesnesi.getCountry() = " + locationNesnesi.getCountry());
@@ -36,5 +36,24 @@ public class _03_ApiTestPOJO {
         // yani NESNE yi elde ettim.
     }
 
+
+    @Test
+    public void extractPOJO_Soru() {
+        // http://api.zippopotam.us/tr/01000  endpointinden dönen verilerden "Dörtağaç Köyü" ait bilgileri yazdırınız
+
+        Location ln =
+                given()
+                        .when()
+                        .get("http://api.zippopotam.us/tr/01000")
+
+                        .then()
+                        .extract().body().as(Location.class);
+
+        for (Place p : ln.getPlaces()) {
+            if (p.getPlacename().equalsIgnoreCase("Dörtağaç Köyü"))
+                System.out.println("p = " + p);
+        }
+
+    }
 
 }
